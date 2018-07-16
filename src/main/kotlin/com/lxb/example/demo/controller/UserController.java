@@ -1,6 +1,5 @@
 package com.lxb.example.demo.controller;
 
-
 import com.lxb.example.demo.models.User;
 import com.lxb.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PutMapping
+    public User update(@RequestBody User user) {
+        return userService.save(user);
+    }
+
     @PostMapping
-    public User save(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         return userService.save(user);
     }
 
@@ -25,8 +29,8 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public User findById(@PathVariable("id") Long userId) {
-        return userService.findById(userId);
+    @GetMapping("/{username}")
+    public User findByUsername(@PathVariable("username") String username) {
+        return userService.findByUsername(username);
     }
 }
