@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
 import javax.persistence.*
-import javax.validation.constraints.Email
-import javax.validation.constraints.NotNull
+import javax.validation.constraints.*
 
 @Table(name = "t_user")
 @Entity
@@ -14,9 +13,12 @@ data class User(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long?,
+
         @Column
-        @NotNull
+        @get: Size(min=6, max=18, message = "用户名长度6~18")
+        @get: NotEmpty(message = "用户名不可为空")
         var username: String?,
+
         @Column var nickname: String?,
         @Column @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) var password: String?,
         @Column @Email var email: String?,
