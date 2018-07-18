@@ -19,9 +19,17 @@ data class User(
         @get: NotEmpty(message = "用户名不可为空")
         var username: String?,
 
-        @Column var nickname: String?,
-        @Column @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) var password: String?,
-        @Column @Email var email: String?,
+        @Column
+        var nickname: String?,
+
+        @Column
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        var password: String?,
+
+        @Column
+        @get: Email
+        var email: String?,
+
         @Column var phone: String?,
         @Column var avatar: String?,
         @Column(name = "create_time") var createTime: Date?,
