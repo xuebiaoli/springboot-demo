@@ -5,8 +5,7 @@ import com.lxb.example.demo.exception.UserNotFoundException;
 import com.lxb.example.demo.exception.UsernameAlreadyExistsException;
 import com.lxb.example.demo.models.User;
 import com.lxb.example.demo.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,12 +21,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value="修改用户信息", notes = "第一个测试api")
+    @ApiOperation(value="修改用户信息", notes = "第一个测试api", response = User.class)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "user", value = "用户信息", required = true, dataTypeClass = User.class)
+    )
     @PutMapping
     public User update(@RequestBody User user) {
         return userService.save(user);
     }
 
+    @ApiOperation(value="创建用户信息", response = User.class)
     @PostMapping
     public User create(@Validated @RequestBody User user, BindingResult result) throws UsernameAlreadyExistsException, ParamValidException {
         if(result.hasErrors()) {
@@ -36,11 +39,13 @@ public class UserController {
         return userService.save(user);
     }
 
+    @ApiOperation(value="获取用户信息", response = User.class)
     @GetMapping
     public List<User> findAll() {
         return userService.findAll();
     }
 
+    @ApiOperation(value="根据用户名获取用户信息", response = User.class)
     @GetMapping("/{username}")
     public User findByUsername(@PathVariable("username") String username) throws UserNotFoundException {
         return userService.findByUsername(username);
