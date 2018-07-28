@@ -5,7 +5,7 @@ import org.springframework.validation.ObjectError;
 import java.util.List;
 
 /**
- * 不存在用户
+ * 参数无效异常
  */
 public class ParamValidException extends RuntimeException {
 

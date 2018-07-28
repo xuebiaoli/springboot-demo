@@ -1,5 +1,9 @@
 package com.lxb.example.demo.exception;
 
+/**
+ *
+ * 用户名已经存在异常
+ */
 public class UsernameAlreadyExistsException extends RuntimeException {
 
     /**
