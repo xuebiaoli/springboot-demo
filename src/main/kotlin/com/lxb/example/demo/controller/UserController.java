@@ -1,6 +1,6 @@
 package com.lxb.example.demo.controller;
 
-import com.lxb.example.demo.exception.ParamValidException;
+import com.lxb.example.demo.exception.InvalidParamException;
 import com.lxb.example.demo.exception.UserNotFoundException;
 import com.lxb.example.demo.exception.UsernameAlreadyExistsException;
 import com.lxb.example.demo.models.User;
@@ -40,9 +40,9 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "用户信息", required = true, dataTypeClass = User.class)
     )
     @PostMapping
-    public User create(@Validated @RequestBody User user, BindingResult result) throws UsernameAlreadyExistsException, ParamValidException {
+    public User create(@Validated @RequestBody User user, BindingResult result) throws UsernameAlreadyExistsException, InvalidParamException {
         if(result.hasErrors()) {
-            throw new ParamValidException("参数格式错误", result.getAllErrors());
+            throw new InvalidParamException("参数格式错误", result.getAllErrors());
         }
         return userService.save(user);
     }

@@ -1,7 +1,7 @@
 package com.lxb.example.demo.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.lxb.example.demo.exception.ParamValidException;
+import com.lxb.example.demo.exception.InvalidParamException;
 import com.lxb.example.demo.exception.UserNotFoundException;
 import com.lxb.example.demo.exception.UsernameAlreadyExistsException;
 import org.springframework.http.HttpHeaders;
@@ -46,8 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResult, headers, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({ParamValidException.class})
-    public ResponseEntity<ErrorResult> paramValidException(ParamValidException ex, WebRequest request){
+    @ExceptionHandler({InvalidParamException.class})
+    public ResponseEntity<ErrorResult> invalidParamException(InvalidParamException ex, WebRequest request){
         HttpHeaders headers = new HttpHeaders();
 
         ErrorResult errorResult = new ErrorResult(400, ex.getMessage());
@@ -57,9 +57,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class ErrorResult {
-        public int code;
-        public String message;
-        public List<ObjectError> errors;
+        private int code;
+        private String message;
+        private List<ObjectError> errors;
 
         public ErrorResult(int code, String message) {
             this.code = code;
