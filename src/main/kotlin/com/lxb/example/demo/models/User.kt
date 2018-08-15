@@ -2,8 +2,6 @@ package com.lxb.example.demo.models
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.springframework.data.elasticsearch.annotations.Field
-import org.springframework.data.elasticsearch.annotations.FieldType
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
@@ -49,7 +47,6 @@ data class User(
         @Column
         var avatar: String? = null,
 
-        @Field(type = FieldType.Date)
         @Column(name = "create_time")
         var createTime: Date? = null,
 
